@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Analytics - <%= shortID %> - URL Shortener</title>
+  <link href="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/css/tabler.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-light shadow-sm">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="/">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" style="width: 24px; height: 24px;">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+      </svg>
+      <strong>URL Shortener</strong>
+    </a>
+    <div class="d-flex align-items-center">
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+        </svg>
+      </button>
+      <a class="btn btn-outline-secondary btn-sm me-2" href="/dashboard">Back to Dashboard</a>
+      <% if (user) { %>
+        <a class="btn btn-outline-danger btn-sm" href="/user/logout">Logout</a>
+      <% } else { %>
+        <a class="btn btn-outline-secondary btn-sm" href="/login">Login</a>
+      <% } %>
+    </div>
+  </div>
+</nav>
+
+<main class="py-6">
+  <div class="container">
+    <h2 class="mb-3">Analytics for <code>/url/<%= shortID %></code></h2>
+    <p class="text-muted">Total clicks: <strong><%= totalClicks %></strong></p>
+
+    <% if (analytics && analytics.length) { %>
+      <div class="table-responsive">
+        <table class="table table-sm table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Timestamp</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% analytics.forEach(function(v, i){ %>
+              <tr>
+                <td><%= i+1 %></td>
+                <td><%= new Date(v.timestamp).toLocaleString() %> (<code><%= v.timestamp %></code>)</td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    <% } else { %>
+      <div class="alert alert-secondary">No visits yet for this URL.</div>
+    <% } %>
+
+  </div>
+</main>
+
+<footer class="py-4 border-top">
+  <div class="container d-flex justify-content-between">
+    <div class="text-muted">© <%= new Date().getFullYear() %> URL Shortener</div>
+  </div>
+</footer>
+
+<script src="/js/theme.js"></script>
+</body>
+</html>
