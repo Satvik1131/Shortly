@@ -13,9 +13,9 @@ const userroute=require('./routes/user');
 const app=express();
 const port=8001;
 
-connectToMongoDB("mongodb://localhost:27017/short-url")
-.then(()=> console.log('MongoDB connected')
-);
+connectToMongoDB(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB connected"))
+  .catch(err => console.error("MongoDB connection error:", err));
 
 //SERVER SIDE RENDERING SETUP
 app.set('view engine','ejs'); //setting ejs as view engine
