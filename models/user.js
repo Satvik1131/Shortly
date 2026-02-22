@@ -1,30 +1,35 @@
 //Making this to do authentication
-const mongoose=require('mongoose');
+const mongoose = require('mongoose');
 
-const userSchema=new mongoose.Schema({
-    name:{
-        type:String,
-        required:true,
+const userSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
     },
-    email:{       
-        type:String,
-        required:true,
+    email: {
+        type: String,
+        required: true,
         unique: true,
     },
-    role:{
-        type:String,
-        required:true,
-        default:"NORMAL",
-        },
-    password:{
-        type:String,
-        required:true,
-        },
+    googleId: {
+        type: String,
+        unique: true,
+        sparse: true
     },
-    {timestamps:true}
+    role: {
+        type: String,
+        required: true,
+        default: "NORMAL",
+    },
+    password: {
+        type: String,
+        required: false, // Made optional for Google OAuth users
+    },
+},
+    { timestamps: true }
 );
 
-const user=mongoose.model("user",userSchema);
+const user = mongoose.model("user", userSchema);
 
-module.exports=user;
+module.exports = user;
 
