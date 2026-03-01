@@ -16,7 +16,7 @@ const passport = require('./config/passport');
 const app = express();
 const port = 8001;
 
-const mongoUri = process.env.MONGO_URI || "mongodb+srv://satvik07:nPLVFdgyRds1KUQr@cluster0.asikfwl.mongodb.net/";
+const mongoUri = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/short-url";
 connectToMongoDB(mongoUri)
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.error("MongoDB connection error:", err));
